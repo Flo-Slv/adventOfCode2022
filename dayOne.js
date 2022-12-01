@@ -24,7 +24,17 @@ const func = async () => {
 		}, initial);
 	});
 
-	console.log(Math.max(...result));
+	// First part.
+	const firstResult = Math.max(...result);
+	console.log({firstResult});
+
+	const sortArr = result.sort((a, b) => {
+		return b - a;
+	});
+
+	const finalResult = sortArr[0] + sortArr[1] + sortArr[2];
+
+	console.log({finalResult});
 }
 
 func();
