@@ -1,21 +1,9 @@
-require('dotenv').config();
-
-const cookie = process.env.COOKIE;
+import fetchData from './fetchData.js';
 
 const func = async () => {
-	const res = await fetch('https://adventofcode.com/2022/day/1/input', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'text/plain',
-			'Cookie': `session=${cookie}`
-		},
-		credentials: 'include'
-		});
+	const data = await fetchData('1');
 
-
-	const data = await res.text();
-
-	const val = data.trim().split('\n\n').map(n => n.split('\n'));
+	const val = data.split('\n\n').map(n => n.split('\n'));
 
 	const initial = 0;
 	const result = val.map(n => {
@@ -28,6 +16,7 @@ const func = async () => {
 	const firstResult = Math.max(...result);
 	console.log({firstResult});
 
+	// Second part.
 	const sortArr = result.sort((a, b) => {
 		return b - a;
 	});
