@@ -6,13 +6,13 @@ import fetchData from './fetchData.js';
 // C = Scissors
 
 // ME
-// X = Rock
-// Y = Paper
-// Z = Scissors
+// X = Rock = 1 point
+// Y = Paper = 2 points
+// Z = Scissors = 3 points
 
-// 0 lost
-// 3 draw
-// 6 victory
+// lost = 0 point
+// draw = 3 points
+// victory = 6 points
 
 const func = async () => {
 	const data = await fetchData('2');
@@ -41,9 +41,10 @@ const func = async () => {
 	});
 	console.log('part 1 res: ', res);
 
-	// Method 2 - TODO
+	// Method 2 - TODO !
 	
 	// PART 2
+	// Method 1
 	// X = defeat
 	// Y = draw
 	// Z = victory
@@ -70,6 +71,8 @@ const func = async () => {
 	});
 
 	console.log('part 2 res: ', res);
+
+	// Method 2 - TO DO !
 }
 
 func();
