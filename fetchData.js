@@ -9,8 +9,7 @@ const fetchData = async day => {
 		headers: {
 			'Content-Type': 'text/plain',
 			'Cookie': `session=${cookie}`
-		},
-		credentials: 'include'
+		}
 	});
 	
 	const data = await res.text();
