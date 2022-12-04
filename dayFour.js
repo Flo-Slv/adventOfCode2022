@@ -6,9 +6,6 @@ const func = async () => {
 
 	const sections = data.map(n => n.split(','));
 
-	// const sections = [['5-7', '7-9'], ['2-8', '3-7'], ['6-6', '4-6'], ['2-6', '4-8']];
-	// const sections = [['7-9', '5-7'], ['5-7', '7-9'], ['2-8', '3-7'], ['6-6', '4-6'], ['2-6', '4-8']];
-
 	// Part 1
 	let count = 0;
 
