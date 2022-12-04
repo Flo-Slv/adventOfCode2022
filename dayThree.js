@@ -1,13 +1,27 @@
 import fetchData from './fetchData.js';
 
+const total = tab => {
+	const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+	const uppercase = lowercase.toUpperCase();
+
+	let total = 0;
+
+	tab.map(n => {
+		if (lowercase.includes(n))
+			return total = total + lowercase.indexOf(n) + 1;
+
+		if (uppercase.includes(n))
+			return total = total + uppercase.indexOf(n) + 27;
+	});
+
+	return total;
+};
+
 const func = async () => {
 	const data = await fetchData('3');
 	const val = data.split('\n');
 
 	// Part 1
-	const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-	const uppercase = lowercase.toUpperCase();
-
 	const items = [];
 
 	val.map((n, k) => {
@@ -24,17 +38,8 @@ const func = async () => {
 		}
 	});
 
-	let total = 0;
-
-	items.map(n => {
-		if (lowercase.includes(n))
-			return total = total + lowercase.indexOf(n) + 1;
-
-		if (uppercase.includes(n))
-			return total = total + uppercase.indexOf(n) + 27;
-	});
-
-	console.log({total});
+	let firstPart = total(items);
+	console.log({firstPart});
 
 	// Part 2
 	// Method 1
@@ -56,36 +61,24 @@ const func = async () => {
 		});
 	}
 
-	let total2 = 0;
-	it.map(n => {
-		if (lowercase.includes(n))
-		return total2 = total2 + lowercase.indexOf(n) + 1;
-
-		if (uppercase.includes(n))
-		return total2 = total2 + uppercase.indexOf(n) + 27;
-	})
-
-	console.log({total2});
+	const secondPartFirstMethod = total(it);
+	console.log({secondPartFirstMethod});
 
 	// Method 2
-	let newTotal = 0;
+	let letters = [];
+
 	for (let i = 0; i < val.length; i+=3) {
 		const first = val[i+0];
 		const second = val[i+1];
 		const third = val[i+2];
 
-		let l = [...first].find(n => second.includes(n) && third.includes(n));
-
-		console.log('l: ', l);
-
-		// if (lowercase.includes(l))
-		// 	return newTotal = newTotal + lowercase.indexOf(l) + 1;
-		//
-		// if (uppercase.includes(l))
-		// 	return newTotal = newTotal + uppercase.indexOf(l) + 27;
+		letters.push(
+			[...first].find(n => second.includes(n) && third.includes(n))
+		);
 	}
 
-	console.log({newTotal});
+	const secondPartSecondMethod = total(letters)
+	console.log({secondPartSecondMethod});
 }
 
 func();
