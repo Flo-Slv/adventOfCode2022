@@ -64,6 +64,8 @@ const func = async () => {
 	res = res.join('');
 
 	console.log('res: ', res);
+
+	// Part 2 - TO DO !
 };
 
 func();
