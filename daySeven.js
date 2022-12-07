@@ -80,7 +80,7 @@ const func = async () => {
 							name,
 							isDirectory: Boolean(false),
 							parent: currentNode,
-						size: parseInt(arg)
+							size: parseInt(arg)
 						});
 					}
 				}
