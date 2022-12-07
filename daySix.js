@@ -50,9 +50,7 @@ const func = async () => {
 
 	// Method 2 - ThomPuce & Synnv - not return right result...
 	(async () => {
-		let input = await fetch("https://adventofcode.com/2022/day/6/input")
-			.then(r => r.text())
-			.then(r => r.trim());
+		let input = await fetchData('6');
 
 		console.log(
 			[...Array(input.length - 13).keys()]
