@@ -14,8 +14,7 @@ const fetchData = async day => {
 	
 	const data = await res.text();
 
-	if (day === '5')
-		return data;
+	if (day === '5') return data;
 
 	return data.trim();
 };
