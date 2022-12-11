@@ -92,8 +92,6 @@ const func = async () => {
 			round++;
 		}
 
-		console.log({monkeys});
-
 		monkeys.sort((a, b) => b.inspections - a.inspections);
 
 		return monkeys[0].inspections * monkeys[1].inspections;
@@ -135,7 +133,6 @@ const func = async () => {
 			round++;
 		}
 
-		console.log({monkeysPartTwo});
 		monkeysPartTwo.sort((a, b) => b.inspections - a.inspections);
 
 		return monkeysPartTwo[0].inspections * monkeysPartTwo[1].inspections;
