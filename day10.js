@@ -8,6 +8,7 @@ const func = async () => {
 		return [instruction, Number(number)];
 	});
 
+	// Website example.
 // 	let dataTest = `addx 15
 // addx -11
 // addx 6
@@ -165,7 +166,6 @@ const func = async () => {
 	// Part 1
 	let cycles = 0;
 	let signalStrength = 1;
-
 	let res = [];
 	let total = 0;
 
@@ -210,11 +210,68 @@ const func = async () => {
 	console.log('Part 1: ', partOne());
 
 	// Part 2
-	const partTwo = () => {
+	const isSpriteIncludes = (sprite, cycles) => {
+		const values = [
+			cycles,
+			cycles - 40,
+			cycles - 80,
+			cycles - 120,
+			cycles - 160,
+			cycles - 200,
+			cycles - 240
+		];
 
+		return values.some(value => sprite.includes(value));
 	};
 
-	console.log('Part 2: ', partTwo());
+	const partTwo = () => {
+		let crt = [];
+		let sprite = [0, 1, 2];
+
+		cycles = 0;
+		signalStrength = 1;
+
+		data.map(n => {
+		// dataTest.map(n => {
+			// noop = 1 cycle
+			if (n[0] === 'noop') {
+				if (isSpriteIncludes(sprite, cycles)) {
+					crt[cycles] = '#';
+					cycles += 1;
+				} else {
+					crt[cycles] = '.';
+					cycles += 1;
+				}
+			}
+
+			// addx = 2 cycles
+			if (n[0] === 'addx') {
+				for (let j = 0; j < 2; j++) {
+					if (isSpriteIncludes(sprite, cycles)) {
+						crt[cycles] = '#';
+						cycles += 1;
+						continue;
+					}
+					
+					crt[cycles] = '.';
+					cycles += 1;
+				}
+
+				signalStrength += n[1];
+
+				sprite[0] = signalStrength - 1;
+				sprite[1] = signalStrength;
+				sprite[2] = signalStrength + 1;
+			}
+		});
+
+		// Display letters.
+		for (let i = 0; i < crt.length; i += 40) {
+			console.log(crt.slice(i, i + 40).join(''));
+		}
+	};
+
+	partTwo();
 }
 
 func();
