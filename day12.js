@@ -66,6 +66,7 @@ const func = async () => {
 		return res;
 	};
 
+	// See Dijkstra-algorithm.txt for full pseudo code.
 	const dijkstra = (map, start, end) => {
 		const dist = {};
 		const prev = {};
@@ -142,6 +143,9 @@ const func = async () => {
 	};
 
 	console.log('Part 1: ', partOne());
+
+	// Part 2
+	// TO DO !
 }
 
 func();
