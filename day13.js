@@ -1,66 +1,65 @@
 import fetchData from './fetchData.js';
 
 const func = async () => {
-	// let data = await fetchData('13');
-
-	// console.log({data});
+	let data = await fetchData('13');
 
 	// Website example.
-	let dataTest = `[1,1,3,1,1]
-[1,1,5,1,1]
-
-[[1],[2,3,4]]
-[[1],4]
-
-[9]
-[[8,7,6]]
-
-[[4,4],4,4]
-[[4,4],4,4,4]
-
-[7,7,7,7]
-[7,7,7]
-
-[]
-[3]
-
-[[[]]]
-[[]]
-
-[1,[2,[3,[4,[5,6,7]]]],8,9]
-[1,[2,[3,[4,[5,6,0]]]],8,9]`;
+// 	let dataTest = `[1,1,3,1,1]
+// [1,1,5,1,1]
+//
+// [[1],[2,3,4]]
+// [[1],4]
+//
+// [9]
+// [[8,7,6]]
+//
+// [[4,4],4,4]
+// [[4,4],4,4,4]
+//
+// [7,7,7,7]
+// [7,7,7]
+//
+// []
+// [3]
+//
+// [[[]]]
+// [[]]
+//
+// [1,[2,[3,[4,[5,6,7]]]],8,9]
+// [1,[2,[3,[4,[5,6,0]]]],8,9]`;
 
 	// Parsing
-	const getInputPartOne = () => {
+	const getInput = part => {
 		let res = [];
 
-		// data.split('\n\n').map(pairs => {
-		dataTest.split('\n\n').map(pairs => {
-			let [left, right] = pairs.split('\n').map(n => {
-				return JSON.parse(n);
-			});
+		// Part one.
+		if (part === 'partOne') {
+			data.split('\n\n').map(pairs => {
+			// dataTest.split('\n\n').map(pairs => {
+				let [left, right] = pairs.split('\n').map(n => {
+					return JSON.parse(n);
+				});
 
 			res.push({ left, right });
-		});
-
-		return res;
-	};
-
-	const getInputPartTwo = () => {
-		let res = [];
-
-		// data.split('\n\n').map(pairs => {
-		dataTest.split('\n\n').map(pairs => {
-			let [left, right] = pairs.split('\n').map(n => {
-				return JSON.parse(n);
 			});
 
-			res.push({ left, right });
-		});
+			return res;
+		}
 
-		res.push([[2]], [[6]]);
+		// Part two.
+		if (part === 'partTwo') {
+			res = data
+			// res = dataTest
+				.replace(/\n\n/g, '\n')
+				.split('\n')
+				.map(n => JSON.parse(n));
 
-		return res;
+			res.push([[2]], [[6]]);
+
+			return res;
+		}
+
+		throw new Error('Wrong part !');
 	};
 	
 	// Part 1
@@ -68,23 +67,24 @@ const func = async () => {
 		const leftIsArray = Array.isArray(left);
 		const rightIsArray = Array.isArray(right);
 
-		if (leftIsArray && rightIsArray) { // both are arrays.
+		if (leftIsArray && rightIsArray) { // Both are arrays.
 			let index = 0;
 
 			while(true) {
+				// To avoid edge case.
 				if (res.order !== undefined) return;
 
-				// If both ran out of items.
+				// If both arrays ran out of items.
 				if (index > left.length - 1 && index > right.length - 1)
 					return;
 
-				// Right ran out of items.
+				// Right array ran out of items.
 				if (index <= left.length - 1 && index > right.length - 1) { 
 					res.order = Boolean(false);
 					return;
 				}
 
-				// Left ran out of items.
+				// Left array ran out of items.
 				if (index > left.length - 1 && index <= right.length - 1) {
 					res.order = Boolean(true);
 					return;
@@ -94,9 +94,9 @@ const func = async () => {
 
 				index++;
 			}
-		} else if (!leftIsArray && rightIsArray) { // left is a number.
+		} else if (!leftIsArray && rightIsArray) { // Left is a number.
 			compare([left], right, res);
-		} else if (leftIsArray && !rightIsArray) { // right is a number.
+		} else if (leftIsArray && !rightIsArray) { // Right is a number.
 			compare(left, [right], res);
 		} else { // Both numbers.
 			if (left < right) {
@@ -112,17 +112,15 @@ const func = async () => {
 	}
 
 	const getPartOne = () => {
-		const input = getInputPartOne();
+		const input = getInput('partOne');
 
 		let counter = 0;
 
-		input.map((el, i) => {
-			let finalRes = {};
-			compare(el.left, el.right, finalRes);
+		input.map((pair, i) => {
+			const finalRes = {};
+			compare(pair.left, pair.right, finalRes);
 
-			if (finalRes.order) {
-				counter = counter + i + 1;
-			}
+			if (finalRes.order) counter += i + 1;
 		});
 
 		return counter;
@@ -132,21 +130,25 @@ const func = async () => {
 
 	// Part 2
 	const getPartTwo = () => {
-		const input = getInputPartTwo();
-		console.log('input part two: ', input);
+		const input = getInput('partTwo');
 
-		let counter = 0;
+		let resPartTwo = input.sort((a, b) => {
+			const res = {};
 
-		input.map((el, i) => {
-			let finalRes = {};
-			compare(el.left, el.right, finalRes);
+			compare(a, b, res);
 
-			if (finalRes.order) {
-				counter = counter + i + 1;
-			}
+			if (res.order) return -1;
+			else return 1;
 		});
 
-		return counter;
+		// Each array as a string.
+		resPartTwo = resPartTwo.map(n => JSON.stringify(n));
+
+		// Add 1 because index start at 1.
+		const two = resPartTwo.indexOf('[[2]]') + 1;
+		const six = resPartTwo.indexOf('[[6]]') + 1;
+
+		return two * six;
 	};
 
 	console.log('Part 2: ', getPartTwo());
