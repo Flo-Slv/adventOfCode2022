@@ -10,6 +10,10 @@ My solutions:
 - day 6: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day6.js
 - day 7: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day7.js
 - day 8: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day8.js
-- day 9: 
+- day 9: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day9.js
+- day 10: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day10.js
+- day 11: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day11.js
+- day 12: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day12.js
+- day 13: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day13.js
 
 https://adventofcode.com
