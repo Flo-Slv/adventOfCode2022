@@ -1,6 +1,7 @@
 import fetchData from './fetchData.js';
 
 const func = async () => {
+	// Puzzle input.
 	// let data = await fetchData('15');
 
 	// Website example.
@@ -23,7 +24,8 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3`;
 	const getInput = () => {
 		const res = [];
 
-		for (let line of dataTest.split('\n')) {
+		// for (let line of data.split('\n')) { // Puzzle input.
+		for (let line of dataTest.split('\n')) { // Website example.
 			line = line
 				.replace(/Sensor at /g, '')
 				.replace(/: closest beacon is at /g, '/')
@@ -32,15 +34,15 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3`;
 			let [sensorX, sensorY] = line[0].split(', ');
 			let [beaconX, beaconY] = line[1].split(', ');
 
+			sensorX = Number(sensorX.replace(/x=/g, ''));
+			sensorY = Number(sensorY.replace(/y=/g, ''));
+			beaconX = Number(beaconX.replace(/x=/g, ''));
+			beaconY = Number(beaconY.replace(/y=/g, ''));
+
 			res.push({
-				sensor: {
-					x: Number(sensorX.replace(/x=/g, '')),
-					y: Number(sensorY.replace(/y=/g, ''))
-				},
-				beacon: {
-					x: Number(beaconX.replace(/x=/g, '')),
-					y: Number(beaconY.replace(/y=/g, ''))
-				}
+				sensor: { x: sensorX, y: sensorY },
+				beacon: { x: beaconX, y: beaconY },
+				manhattanDistance: Math.abs(sensorX - beaconX) + Math.abs(sensorY - beaconY)
 			});
 		}
 
@@ -48,11 +50,37 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3`;
 	};
 
 	// Part 1
-	
-	const getPartOne = () => {
-		const res = getInput();
+	// const getImpossiblesX = (input, row = 2_000_000) => { // Puzzle input
+	const getImpossiblesX = (input, row = 10) => { // Website example
+		const res = new Set();
+
+		for (const line of input) {
+			// Thanks SynnVoid for explanations on your live on Twitch !
+			const distanceFromSensorToRow = Math.abs(line.sensor.y - row);
+			const nbOfCells = line.manhattanDistance - distanceFromSensorToRow; // Most important to understand !
+			// console.log({line, row, distanceFromSensorToRow, nbOfCells});
+
+			if (nbOfCells < 0) continue; // no '#' on the line.
+
+			for (let i = line.sensor.x - nbOfCells; i <= line.sensor.x + nbOfCells; i++) {
+				res.add(i);
+			}
+
+			// Delete beacons on row.
+			for (const line of input) {
+				if (line.beacon.y === row) res.delete(line.beacon.x);
+			}
+		};
 
 		return res;
+	};
+
+	const getPartOne = () => {
+		const input = getInput();
+
+		const res = getImpossiblesX(input);
+
+		return res.size;
 	};
 
 	console.log('Part 1: ', getPartOne());
