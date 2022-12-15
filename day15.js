@@ -24,9 +24,10 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3`;
 		const res = [];
 
 		for (let line of dataTest.split('\n')) {
-			line = line.replace(/Sensor at /g, '');
-			line = line.replace(/: closest beacon is at /g, '/');
-			line = line.split('/');
+			line = line
+				.replace(/Sensor at /g, '')
+				.replace(/: closest beacon is at /g, '/')
+				.split('/');
 
 			let [sensorX, sensorY] = line[0].split(', ');
 			let [beaconX, beaconY] = line[1].split(', ');
