@@ -15,5 +15,7 @@ My solutions:
 - day 11: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day11.js
 - day 12: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day12.js
 - day 13: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day13.js
+- day 14: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day14.js
+- day 15: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day15.js
 
 https://adventofcode.com
