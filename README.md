@@ -1,6 +1,8 @@
 # adventOfCode2022
 Advent of Code 2022 - JavaScript
 
+I am learning algorithms in JS thanks to Advent of Code !
+
 My solutions:
 - day 1: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day1.js
 - day 2: https://github.com/Flo-Slv/adventOfCode2022/blob/main/day2.js
